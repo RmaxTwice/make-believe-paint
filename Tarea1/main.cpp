@@ -23,21 +23,48 @@ enum figure
 	TRIANGULO
 } select;
 
+void swapPointsCoord(int &x1, int &y1, int &x2, int &y2) {
+	int aux = x1;
+	x1 = x2;
+	x2 = aux;
+	aux = y1;
+	y1 = y2;
+	y2 = aux;
+}
+
+
 void dibujarLinea(int x1, int y1, int x2, int y2)
 {
-	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_LINES);
 		glVertex3f(x1, y1, 0.0);
 		glVertex3f(x2, y2, 0.0);
 	glEnd();
 }
 
+void dibujarRectangulo(int x1, int y1, int x2, int y2)
+{
+	int aux;
+	/*
+	if (x1 > x2)
+	{
+		swapPointsCoord(x1, y1, x2, y2);
+	}*/
+	glBegin(GL_POLYGON);
+		glVertex3f(x1, y1, 0.0);
+		glVertex3f(x2, y1, 0.0);
+		glVertex3f(x2, y2, 0.0);
+		glVertex3f(x1, y2, 0.0);
+	glEnd();
+}
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0, 1.0, 1.0);
 
-	dibujarLinea(xi, yi, xf, yf);
+	glColor3f(0.0, 0.0, 0.0);
+
+	//dibujarLinea(xi, yi, xf, yf);
+	dibujarRectangulo(xi, yi, xf, yf);
 
 	TwDraw();
 	glFlush();
@@ -103,9 +130,13 @@ void keyboard(unsigned char key, int x, int y)
 
 void TW_CALL action1(void *clientData)
 {
-	cout << "Presionaste el boton" << endl;
+	cout << "Dibujando Linea" << endl;
 }
 
+void TW_CALL action2(void *clientData)
+{
+	cout << "Dibujando Rectangulo" << endl;
+}
 
 
 
@@ -139,11 +170,12 @@ void initATB()
 	TwEnumVal TypeFEV[] = { { NONE, "Niguno" },{ LINEA, "Linea" },{ CUADRILATERO, "Cudrilatero" },{ CIRCULO, "Circulo" },{ ELIPSE, "Elipse" },{ TRIANGULO, "Triangulo" } };
 	TwType TypesF;
 	TypesF = TwDefineEnum("comboBox", TypeFEV, 6);
-	TwAddVarRW(myBar, "comboBox", TypesF, &select, NULL);
+	//TwAddVarRW(myBar, "comboBox", TypesF, &select, NULL);
 	TwAddButton(myBar, "button1", action1, NULL, "label = 'Boton 1'");
-	TwAddVarRO(myBar, "label1", TW_TYPE_STDSTRING, &label, "label='label 1'");
-	TwAddVarRW(myBar, "color1", TW_TYPE_COLOR3F, &color[0], "label = 'Color 1'");
-	TwAddVarRW(myBar, "bool1", TW_TYPE_BOOLCPP, &box, "label = 'Booleano 1 '");
+	TwAddButton(myBar, "button2", action2, NULL, "label = 'Boton 2'");
+	//TwAddVarRO(myBar, "label1", TW_TYPE_STDSTRING, &label, "label='label 1'");
+	//TwAddVarRW(myBar, "color1", TW_TYPE_COLOR3F, &color[0], "label = 'Color 1'");
+	//TwAddVarRW(myBar, "bool1", TW_TYPE_BOOLCPP, &box, "label = 'Booleano 1 '");
 }
 
 int main(int argc, char **argv)
