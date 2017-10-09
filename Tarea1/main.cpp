@@ -1,6 +1,7 @@
 #include "../headers/glew/glew.h"
 #include "../headers/freeglut/freeglut.h"
 #include "../headers/AntTweakBar/AntTweakBar.h"
+#include "primitivas.cpp"
 #include <iostream>
 
 using namespace std;
@@ -32,7 +33,7 @@ void swapPointsCoord(int &x1, int &y1, int &x2, int &y2) {
 	y2 = aux;
 }
 
-
+/*
 void dibujarLinea(int x1, int y1, int x2, int y2)
 {
 	glBegin(GL_LINES);
@@ -43,12 +44,6 @@ void dibujarLinea(int x1, int y1, int x2, int y2)
 
 void dibujarRectangulo(int x1, int y1, int x2, int y2)
 {
-	int aux;
-	/*
-	if (x1 > x2)
-	{
-		swapPointsCoord(x1, y1, x2, y2);
-	}*/
 	glBegin(GL_POLYGON);
 		glVertex3f(x1, y1, 0.0);
 		glVertex3f(x2, y1, 0.0);
@@ -56,15 +51,15 @@ void dibujarRectangulo(int x1, int y1, int x2, int y2)
 		glVertex3f(x1, y2, 0.0);
 	glEnd();
 }
-
+*/
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glColor3f(0.0, 0.0, 0.0);
 
-	//dibujarLinea(xi, yi, xf, yf);
-	dibujarRectangulo(xi, yi, xf, yf);
+	dibujarLinea(xi, yi, xf, yf);
+	//dibujarRectangulo(xi, yi, xf, yf);
 
 	TwDraw();
 	glFlush();
@@ -104,7 +99,6 @@ void mousePress(int button, int state, int x, int y)
 				break;
 		}
 	}
-
 }
 
 void mouseMove(int x, int y)
@@ -137,8 +131,6 @@ void TW_CALL action2(void *clientData)
 {
 	cout << "Dibujando Rectangulo" << endl;
 }
-
-
 
 void initGlut(int argc, char **argv)
 {
