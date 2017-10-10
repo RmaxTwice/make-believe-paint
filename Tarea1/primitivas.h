@@ -7,7 +7,12 @@
 
 #include <iostream>
 
+inline void dibujarPunto(int, int);
+inline void dibujar8Puntos(int, int, int, int);
 inline void dibujarLinea(int, int, int, int);
-inline void dibujarRectangulo(int, int, int, int);
-
+inline void dibujarRectanguloBorde(int, int, int, int);
+inline void dibujarRectanguloRelleno(int, int, int, int);
+inline void dibujarCirculoBorde(int, int, int);
+inline void dibujarTrianguloBoxBorde(int, int, int, int);
+inline void dibujarTrianguloLibreBorde(int, int, int, int, int, int);
 #endif

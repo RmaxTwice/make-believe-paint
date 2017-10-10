@@ -33,33 +33,18 @@ void swapPointsCoord(int &x1, int &y1, int &x2, int &y2) {
 	y2 = aux;
 }
 
-/*
-void dibujarLinea(int x1, int y1, int x2, int y2)
-{
-	glBegin(GL_LINES);
-		glVertex3f(x1, y1, 0.0);
-		glVertex3f(x2, y2, 0.0);
-	glEnd();
-}
-
-void dibujarRectangulo(int x1, int y1, int x2, int y2)
-{
-	glBegin(GL_POLYGON);
-		glVertex3f(x1, y1, 0.0);
-		glVertex3f(x2, y1, 0.0);
-		glVertex3f(x2, y2, 0.0);
-		glVertex3f(x1, y2, 0.0);
-	glEnd();
-}
-*/
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glColor3f(0.0, 0.0, 0.0);
 
-	dibujarLinea(xi, yi, xf, yf);
-	//dibujarRectangulo(xi, yi, xf, yf);
+	//dibujarPixel(xi, yi);
+	if (!first) dibujarLinea(xi, yi, xf, yf);
+	//dibujarRectanguloBorde(xi, yi, xf, yf);
+	//dibujarCirculoBorde(50, xi,yi);
+	// dibujarTrianguloBoxBorde(xi, yi, xf, yf);
+	//dibujarTrianguloLibreBorde(100, 100, 200, 100, 400, 400);
 
 	TwDraw();
 	glFlush();
@@ -91,14 +76,20 @@ void mousePress(int button, int state, int x, int y)
 				xi = x;
 				yi = y;
 				first = 1;
+				cout << "First click setting Pi\n";
 				break;
 			case 1:
 				xf = x;
 				yf = y;
 				first = 0;
+				if (xf < xi) {
+					swapPointsCoord(xi, yi, xf, yf);
+					cout << "swapped\n";
+				}
 				break;
 		}
 	}
+	glutPostRedisplay();
 }
 
 void mouseMove(int x, int y)
@@ -124,12 +115,14 @@ void keyboard(unsigned char key, int x, int y)
 
 void TW_CALL action1(void *clientData)
 {
-	cout << "Dibujando Linea" << endl;
+	select = LINEA;
+	cout << "Dibujando " << select << endl;
 }
 
 void TW_CALL action2(void *clientData)
 {
-	cout << "Dibujando Rectangulo" << endl;
+	select = CUADRILATERO;
+	cout << "Dibujando " << select << endl;
 }
 
 void initGlut(int argc, char **argv)
