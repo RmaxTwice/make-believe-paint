@@ -14,6 +14,7 @@ float color[3];
 int xi, yi, xf, yf;
 int first = 0;
 
+
 enum figure
 {
 	NONE,
@@ -39,12 +40,18 @@ void display()
 
 	glColor3f(0.0, 0.0, 0.0);
 
+	//prim->paint();
 	//dibujarPixel(xi, yi);
-	if (!first) dibujarLinea(xi, yi, xf, yf);
+	//if (!first) dibujarLinea(xi, yi, xf, yf);
+	//dibujarLinea(xi, yi, xf, yf);
+	//dibujarLinea(xi, yi +150, xf, yf-30);
 	//dibujarRectanguloBorde(xi, yi, xf, yf);
 	//dibujarCirculoBorde(50, xi,yi);
 	// dibujarTrianguloBoxBorde(xi, yi, xf, yf);
 	//dibujarTrianguloLibreBorde(100, 100, 200, 100, 400, 400);
+
+	if (!first) setElipse(xi, yi, xf, yf);
+	dibujarElipseBordeH(100,100, 400, 400);
 
 	TwDraw();
 	glFlush();
@@ -81,11 +88,12 @@ void mousePress(int button, int state, int x, int y)
 			case 1:
 				xf = x;
 				yf = y;
-				first = 0;
 				if (xf < xi) {
 					swapPointsCoord(xi, yi, xf, yf);
 					cout << "swapped\n";
+					cout << "Punto i: ("<< xi <<" , " << yi <<")  Punto f: (" << xf << " , " << yf << ")\n";
 				}
+				first = 0;
 				break;
 		}
 	}
@@ -137,6 +145,11 @@ void initGlut(int argc, char **argv)
 	glutMotionFunc(mouseMove);
 	glutMouseFunc(mousePress);
 	glutKeyboardFunc(keyboard);
+
+	//prim = Lprueba;
+	//prim->setBoundingBox(0, 0, 300, 300, 0);
+	//prim->initCirculo();
+	//Lprueba->initcirculo(400,400,50);
 }
 
 void initATB()
@@ -165,12 +178,14 @@ void initATB()
 
 int main(int argc, char **argv)
 {
+
 	gWidth = 800;
 	gHeight = 600;
 	select = NONE;
 	label = "Hola";
 	box = true;
 	color[0] = color[1] = color[2] = 0.5;
+
 	initGlut(argc, argv);
 	initATB();
 	glutMainLoop();
